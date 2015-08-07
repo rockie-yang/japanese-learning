@@ -1,63 +1,34 @@
 __author__ = 'Rockie Yang'
 # -*- coding: utf-8 -*-
+import hiragana
 
-dictionary = [
-    ('あ', 'a', '安'),
-    ('い', 'i', '以'),
-    ('う', 'u', '宇'),
-    ('え', 'e', '衣'),
-    ('お', 'o', '於'),
+class HiraganaDictionary():
+    levels = []
+    levels.extend(hiragana.basic)
+    levels.extend(hiragana.voiced)
 
-    ('か', 'ka', '加'),
-    ('き', 'ki', '幾'),
-    ('く', 'ku', '久'),
-    ('け', 'ke', '計'),
-    ('こ', 'ko', '己'),
+    @staticmethod
+    def level_name(level):
+        return level[0][0]
 
-    ('さ', 'sa', '左'),
-    ('し', 'shi', '之'),
-    ('す', 'su', '寸'),
-    ('せ', 'se', '世'),
-    ('そ', 'so', '曽'),
+    @staticmethod
+    def level_words(level):
+        return level[1:]
 
-    ('た', 'ta', '太'),
-    ('ち', 'chi', '知'),
-    ('つ', 'tsu', '川'),
-    ('て', 'te', '天'),
-    ('と', 'to', '止'),
+    @staticmethod
+    def placeholder(t):
+        return len(t) > 3
 
-    ('な', 'na', '奈'),
-    ('に', 'ni', '仁'),
-    ('ぬ', 'nu', '奴'),
-    ('ね', 'ne', '祢'),
-    ('の', 'no', '乃'),
+    @staticmethod
+    def key(t):
+        return t[0]
 
-    ('は', 'ha', '波'),
-    ('ひ', 'hi', '比'),
-    ('ふ', 'fu', '不'),
-    ('へ', 'he', '部'),
-    ('ほ', 'ho', '保'),
+    @staticmethod
+    def romaji(t):
+        return t[1]
 
-    ('ま', 'ma', '末'),
-    ('み', 'mi', '美'),
-    ('む', 'mu', '武'),
-    ('め', 'me', '女'),
-    ('も', 'mo', '毛'),
+    @staticmethod
+    def origin(t):
+        return t[2]
 
-    ('や', 'ya', '也'),
-    # ('い', 'i', '以'),
-    ('ゆ', 'yu', '由'),
-    # ('え', 'e', '衣'),
-    ('よ', 'yu', '与'),
-
-    ('ら', 'ra', '良'),
-    ('り', 'ri', '利'),
-    ('る', 'ru', '留'),
-    ('れ', 're', '礼'),
-    ('ろ', 'ro', '呂'),
-
-    ('わ', 'wa', '和'),
-    # ('い', 'i', '以'),
-    # ('う', 'u', '宇'),
-    # ('え', 'e', '衣'),
-    ('を', 'o', '遠')]
+# dictionary.extend(hiragana.combined)
