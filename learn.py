@@ -1,10 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 __author__ = 'Rockie Yang'
 
 import os.path
 import random
+import codecs
 
 progress_file = "progress.data"
 
@@ -27,7 +28,10 @@ class Learner():
     def romaji(self, key):
         return self.romji_map[key]
 
-    def __init__(self, dictionary, progress_file = "progress.data", max_learn=50):
+    def __init__(self, dictionary, practise_dict={}, progress_file = "progress.data", max_learn=50):
+        self.practise_dict = practise_dict
+        self.practise_words = []
+        self.learned = {}
         self.max_learn = max_learn
         self.progress_data = {}
         self.current_learning = []
@@ -41,12 +45,22 @@ class Learner():
     def load_saved_progress(self):
         """ if the progress file exist update with the progress data"""
         if os.path.isfile(progress_file):
-            with open(progress_file) as f:
+            with codecs.open(progress_file, 'r', 'utf-8') as f:
                 for line in f.readlines():
                     items = line.split()
-                    self.progress_data[items[0]] = (int(items[1]), int(items[2]))
+                    key = items[0]
+                    progress = (int(items[1]), int(items[2]))
+                    self.progress_data[key] = progress
+                    if progress != (0, 0):
+                        self.learned[key] = True
 
+    def get_practise_words(self):
 
+        for item in self.practise_dict:
+            word = item.word
+            if_char_learned = [(ch in self.learned) for ch in word]
+            if all(if_char_learned):
+                self.practise_words.append(item)
 
     def get_review_words(self):
         # review all learned
@@ -66,7 +80,9 @@ class Learner():
         print("new words to learn are :")
         for level in self.dictionary.levels:
             level_name = self.dictionary.level_name(level)
-            if (level_name not in self.progress_data) or self.progress_data[level_name] != (0, 0):
+            if (level_name in self.progress_data) and self.progress_data[level_name] != (0, 0):
+                pass
+            else:
                 self.progress_data[level_name] = (1, 0)
                 for word in self.dictionary.level_words(level):
                     key = self.dictionary.key(word)
@@ -83,9 +99,9 @@ class Learner():
 
         print("enjoy learning :-) \n")
 
-
     def review(self):
         self.get_review_words()
+        self.get_practise_words()
         self.learn()
 
     def learn_new(self):
@@ -100,7 +116,7 @@ class Learner():
         mastery_change = len(self.current_learning) * 20 / self.max_learn
 
 
-        learned = 0l
+        learned = 0
         # if still wanna learn and there are things to learn
         while running and len(self.current_learning) > 0 and learned < self.max_learn:
             # shuffle the learning chars every time
@@ -113,7 +129,8 @@ class Learner():
 
             while index < len(self.current_learning):
                 key = self.current_learning[index]
-                user_input = raw_input("%s             %s\n" % (key, self.origin(key))).strip()
+                promt = "%s             %s\n" % (key, self.origin(key))
+                user_input = input(promt).strip()
                 if user_input == "exit":
                     running = False
                     break
@@ -126,9 +143,19 @@ class Learner():
                     else:
                         index += 1
                 else:
-                    print("you typed wrong, it should be: %s" % self.romji_map(key))
+                    print("you typed wrong, it should be: %s" % self.romji_map[key])
                     index += 1
 
+            random.shuffle(self.practise_words)
+            for item in self.practise_words[:20]:
+                word = item.word
+                user_input = input("%s             %s  %s\n" % (word, item.kanji, item.english)).strip()
+                if user_input == "exit":
+                    running = False
+                    break
+
+                if user_input != item.romaji:
+                    print("you typed wrong, it should be: %s" % item.romaji)
 
         # if user does not specify exit in the middle
         # then it means today's learn has been fulfilled
@@ -141,28 +168,13 @@ class Learner():
 
     def save_progress_data(self):
         # write back progress data
-        with open(progress_file, "w") as f:
+        with codecs.open(progress_file, "w", 'utf-8') as f:
             for key in self.progress_data:
 
                 progress = self.progress_data[key]
                 f.write("%s %s %s\n" % (key, progress[0], progress[1]))
 
-class Parser():
-    def __init__(self, Item):
-        self.Item = Item
 
-    def parse(self, file):
-        items = []
-        with open(file) as f:
-            for line in f.readlines():
-                try:
-                    item = self.Item(line)
-                    print(str(item))
-                    items.append(item)
-                except SyntaxError as e:
-                    pass
-
-        return items
 
 def main():
     # learn_type = raw_input("what would you like to do, [review] or [learn new]\n").strip()
@@ -170,7 +182,9 @@ def main():
     learn_type = "review"
     from dictionary import HiraganaDictionary
     dictionary = HiraganaDictionary()
-    learner = Learner(dictionary)
+    import basic1000
+    practise_dict = basic1000.practise_dict
+    learner = Learner(dictionary, practise_dict)
     if learn_type == "review":
         learner.review()
 
@@ -185,8 +199,9 @@ def main():
     learner.save_progress_data()
 
 if __name__ == "__main__":
-    from basic1000 import Item
 
-    parser = Parser(Item)
-    items = parser.parse("basic1000.txt")
+    # from basic1000 import Item
+    #
+    # parser = Parser(Item)
+    # items = parser.parse("basic1000.csv")
     main()
