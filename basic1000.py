@@ -14,7 +14,7 @@ class Parser():
             for line in f.readlines():
                 try:
                     item = self.Item(line)
-                    print(str(item))
+                    # print(str(item))
                     words.append(item)
                 except SyntaxError as e:
                     pass

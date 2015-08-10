@@ -35,8 +35,8 @@
 きょうし;教師;(academic teacher;kyoushi
 かしゅ;歌手;singer;kashu
 #Body[edit]
-あし;足;脚;foot, leg;ashi
-かかと;踵;heel;kakat
+あし;足,脚;foot, leg;ashi
+#TODO かかと;踵;heel;kakat
 すね;脛;shin;sune
 ひざ;膝;knee;hiza
 もも;腿;thigh;momo
@@ -59,7 +59,7 @@
 てのひら;掌;手の平;palm of hand;te-no-hira
 ゆび;指;finger, toe;yubi
 しり;尻;buttocks;shiri
-おなか;お腹 （はら;腹）;abdomen;o-naka
+おなか;お腹 （はら,腹）;abdomen;onaka
 かんぞう;肝臓;liver;kanzō
 きも;肝;liver;kimo
 きんにく;筋肉;muscle;kin'niku
@@ -87,7 +87,7 @@ Family[edit]
 おっと;夫;husband;otto
 あに;兄;older brother;ani;onī-san
 あね;姉;older sister;ane;onē-san
-おとうと;弟;younger brother;otōto
+#TODO おとうと;弟;younger brother;otōto
 いもうと;妹;younger sister;imōto
 きょうだい;兄弟;brothers, siblings;kyōdai
 しまい;姉妹;sisters;shimai
@@ -119,7 +119,7 @@ Family[edit]
 しか;鹿;deer;shika
 かえる;蛙;frog;kaeru
 がま;蟇;toad;gama
-しし;獅子;lion;Shishi
+しし;獅子;lion;shishi
 キリン;麒麟;giraffe;kirin
 ぞう;象;elephant;zō
 とり;鳥;bird;tori
@@ -167,7 +167,7 @@ Family[edit]
 ね or ねっこ;根 or 根っ子 - root;ne or nekko
 くき;茎 - stem;kuki
 きのこ;茸 - mushroom;kinoko
-きく;菊 - chrysanthemum;kiku
+きく;菊 ;chrysanthemum;kiku
 さくら;桜 - cherry blossom;sakura
 Crops[edit]
 こめ;米;uncooked rice;kome
@@ -269,10 +269,10 @@ Directions and positions[edit]
 した;下;below, down;shita
 まえ;前;front;mae
 うしろ;後;behind;ushiro
-むこう;向こう;the other side, opposite side;mukō
+#TODO むこう;向こう;the other side, opposite side;mukō
 ななめ;斜め;diagonal;naname
 てまえ;手前;nearer, more in front;temae
-おく;奥;far;oku, tooi,;near,close - Chikai
+おく;奥;far;oku;, tooi,;near,close - Chikai
 Materials[edit]
 みず;水;water;mizu
 ゆ;湯;hot water;yu
@@ -355,7 +355,7 @@ Stationary[edit]
 ノート;notebook;nōto
 にっき;日記;diary;nikki
 カバー;book cover;kabā
-ふうとう;封筒;envelope;fūtō
+#TODO ふうとう;封筒;envelope;fūtō
 はさみ;鋏;scissors;hasami
 ホッチキス;stapler;hotchikisu
 Clothes[edit]
@@ -440,7 +440,8 @@ Numbers[edit]
 よん;し;四;four;yon, shi
 ご;五;five;go
 ろく;六;six;roku
-なな;しち;七;seven;nana, shichi
+なな;七;seven;nana
+しち;七;seven;shichi
 はち;八;eight;hachi
 きゅう;く;九;nine;kyū, ku
 じゅう;十;ten;jū
@@ -479,14 +480,15 @@ Abstract nouns[edit]
 みらい;未来;future;mirai
 Adjectives[edit]
 Forms[edit]
-いい;よい;良い;good;ii, yoi
+#TODO いい;よい;良い;good;ii, yoi
+いい;良い;good;ii
 すごい;凄い;amazing;sugoi
 すばらしい;素晴らしい;wonderful;subarashii
 わるい;悪い;bad, inferior;warui
 たかい;高い;expensive, high;takai
 ひくい;低い;low;hikui
 やすい;安い;cheap;yasui
-おおきい;大きい;big;ōkii
+#TODO おおきい;大きい;big;ōkii
 ちいさい;小さい;small;chiisai
 ほそい;細い;thin;hosoi
 ふとい;太い;thick;futoi
@@ -588,7 +590,7 @@ Changes of state[edit]
 きめる, 決める - to decide;kimeru
 Senses[edit]
 みる;見る;to see;miru
-きく;聞く;聴く;to hear, to listen;kiku
+きく;聞く,聴く;to hear, to listen;kiku
 さわる;触る;to touch, to feel;sawaru
 かぐ;嗅ぐ;to smell;kagu
 Speech[edit]
@@ -711,7 +713,7 @@ Conjunctive[edit]
 の;possession;no
 ので;so;node
 また;又;also, again;mata
-または;又は;or alternatively;matawa
+#TODO または;又は;or alternatively;matawa
 も;also, too;mo
 や;and;ya
 Final[edit]
@@ -741,3 +743,14 @@ Final[edit]
 ばかり;ばっかり;just, full of, only;bakari
 まで;until;made
 も;too, also;mo
+
+おとこのこ;男孩;boy;otokonoko
+おとこのひと;男人;man;otokonohito
+おんなのこ;女孩;girl;onnanoko
+おんなのひと;女人;women;onanohito
+こんにちは;你好;hallo;konnichiwa
+さようなら;再见;goodbye;sayounara
+かれ;他;he;kare
+かれら;他们;they;karera
+みず;水;water;mizu
+ほん;书;book;hon

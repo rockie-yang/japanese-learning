@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+
 # -*- coding: utf-8 -*-
 
 __author__ = 'Rockie Yang'
@@ -177,9 +178,9 @@ class Learner():
 
 
 def main():
-    # learn_type = raw_input("what would you like to do, [review] or [learn new]\n").strip()
+    learn_type = input("what would you like to do, [review] or [learn new]\n").strip()
     # learn_type = "learn new"
-    learn_type = "review"
+    # learn_type = "review"
     from dictionary import HiraganaDictionary
     dictionary = HiraganaDictionary()
     import basic1000
