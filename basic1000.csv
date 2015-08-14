@@ -80,7 +80,7 @@
 びょうき;病気;illness;byōki
 # Family[edit]
 かぞく;家族;family;kazoku
-おや;親;parents;goryoushin
+おや;親;parents;oya;goryoushin
 こども;子供;children, child;kodomo
 ちち;父;father;chichi
 はは;母;mother;haha
@@ -414,7 +414,7 @@ Stationary[edit]
 じしょ;辞書;dictionary;jisho
 パソコン;;personal computer;pasokon
 #Colors[edit]
-いろ;色;color;iro, shikisai
+いろ;色;color;iro;, shikisai
 あか;赤;red;aka
 きいろ;黄色;yellow;kiiro
 みどり;緑;green;midori
@@ -707,7 +707,7 @@ Stationary[edit]
 より;;than;yori
 を;;direct object marker;o
 #Binding[edit]
-は;;topic marker;wa; [Note: "は" is usually pronounced as "ha", but pronounced "wa" when used as a particle]
+#TODO it is a bit hard now は;;topic marker;wa; [Note: "は" is usually pronounced as "ha", but pronounced "wa" when used as a particle]
 も;;as well;mo
 や;;and;ya
 #Conjunctive[edit]
