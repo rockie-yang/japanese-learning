@@ -9,8 +9,90 @@ import random
 import codecs
 
 progress_file = "progress.data"
+import dictionary
+
+class BasicLearner():
+    def __init__(self, words, round):
+        self.words = words
+        self.round = round
+
+    def learn(self):
+        for _ in range(self.round):
+            self.learn_one_round()
+
+    def get_choices(self, possible_choices, correct_answer, number=4):
+        choices = [correct_answer]
+
+        sample = random.sample(possible_choices, number + 2)
+
+        return choices.extend(sample)[:number]
+
+class Kana2RomajiType(BasicLearner):
+    def __init__(self, words, show_origin, rounds=1):
+        super(words, rounds)
+        self.words = words
+        self.show_origin = show_origin
+
+    def __iter__(self):
+        return self
+
+    def learn_one_round(self):
+        for word in self.words:
+            prompt = dictionary.kana(word)
+            if self.show_origin:
+                prompt += "  " + dictionary.origin(word)
+            user_input = input(prompt).strip()
+            romaji = dictionary.romaji(word)
+            if user_input != romaji:
+                print('it should be ' + romaji)
+
+#
+# class Kana2RomajiChoose(BasicLearner):
+#     def __init__(self, words, show_origin, all_romaji, rounds=1):
+#         super(words, rounds)
+#         self.words = words
+#         self.show_origin = show_origin
+#         self.all_romaji = all_romaji
+#         self.total_romaji = len(all_romaji)
+#
+#
+#
+#     def learn_one_round(self):
+#         for word in self.words:
+#             prompt = dictionary.kana(word)
+#             if self.show_origin:
+#                 prompt += "  " + dictionary.origin(word)
+#
+#             romaji = dictionary.romaji(word)
+#             choices = '    '.join(self.get_choices(self.all_romaji, romaji))
+#             user_input = input(prompt + '\n' + choices).strip()
+#
+#             if user_input != romaji:
+#                 print('it should be ' + romaji)
 
 
+class Romaji2KanaChoose(BasicLearner):
+    def __init__(self, words, show_origin, all_kana, rounds=1):
+        super(words, rounds)
+        self.words = words
+        self.show_origin = show_origin
+        self.all_kana = all_kana
+
+    def learn_one_round(self):
+        for word in self.words:
+            prompt = dictionary.romaji(word)
+            if self.show_origin:
+                prompt += "  " + dictionary.origin(word)
+
+            kana = dictionary.kana(word)
+            choices = '    '.join(self.get_choices(self.all_kana, kana))
+            user_input = input(prompt + '\n' + choices).strip()
+
+            if user_input != kana:
+                print('it should be ' + kana)
+
+from collections import namedtuple
+ScoreRange = namedtuple("ScoreRange", ["begin", "end"])
 
 class Learner():
     def init_data(self):
@@ -18,10 +100,31 @@ class Learner():
         # initialize progress with all (0, 0) (short, long) memory
         for level in dictionary.levels:
             for word in dictionary.level_words(level):
-                key = dictionary.key(word)
+                key = dictionary.kana(word)
                 self.progress_data[key] = (0, 0)
                 self.origin_map[key] = dictionary.origin(word)
                 self.romji_map[key] = dictionary.romaji(word)
+
+
+
+    def next(self):
+        # if no word is less then thresholdKana2RomajiTypeRound1 learned
+        fetchNewKanaRange = ScoreRange(3, 6)
+        startPractiseRange = ScoreRange(6, 10)
+        startSelectKanaRange = ScoreRange(10, 15)
+        startSelectPractiseKanaRange = ScoreRange(5, 10)
+
+
+        thresholdKana2RomajiTypeRound1 = 3
+        thresholdKana2RomajiTypeRound2 = 6
+        thresholdKana2RomajiTypeRound3 = 10
+
+        Hiragana
+        Kana2RomajiType -> thresholdKana2RomajiType
+        -> fecthANeWLevel
+        PractiseKana2RomajiType -> thresholdKana2RomajiType
+        Romaji2KanaChoose -> thresholdRomaji2KanaChoose
+        PractiseRomaji2KanaChoose -> thresholdRomaji2KanaChoose
 
     def origin(self, key):
         return self.origin_map[key]
@@ -69,7 +172,7 @@ class Learner():
 
             for word in self.dictionary.level_words(level):
                 if not self.dictionary.placeholder(word):
-                    key = self.dictionary.key(word)
+                    key = self.dictionary.kana(word)
                     mastery = self.progress_data[key]
                     # it has been learned, but short memory is not full
                     if mastery[1] != 0 and mastery[0] < 10:
@@ -86,7 +189,7 @@ class Learner():
             else:
                 self.progress_data[level_name] = (1, 0)
                 for word in self.dictionary.level_words(level):
-                    key = self.dictionary.key(word)
+                    key = self.dictionary.kana(word)
 
                     romaji = self.dictionary.romaji(word)
                     origin = self.dictionary.origin(word)
@@ -109,6 +212,16 @@ class Learner():
         self.get_new_words()
         self.learn()
 
+    def play_sound(self, romaji):
+        import pyglet
+
+        import urllib.request
+        url = "http://www.tokyowithkids.com/fyi/japanese/kana_sounds/"
+        urllib.request.urlretrieve(url + romaji + ".wav", "sound/" + romaji + ".wav")
+
+        sound = pyglet.media.load("sound/" + romaji + '.wav')
+
+        sound.play()
 
 
     def learn(self):
@@ -131,6 +244,7 @@ class Learner():
             while index < len(self.current_learning):
                 key = self.current_learning[index]
                 promt = "%s             %s\n" % (key, self.origin(key))
+                self.play_sound(self.romaji(key))
                 user_input = input(promt).strip()
                 if user_input == "exit":
                     running = False
